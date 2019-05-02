@@ -3,15 +3,15 @@ public class merchItem {
 
 	String itemName;
 	String itemDescription;
-	double itemPrice;
+	int itemPriceCents; //item price in cents
 	int itemUpcNumber;
 	int itemInventory;
 	
-	merchItem(String name, String description, double price, int upc, int inventory)
+	merchItem(String name, String description, int price, int upc, int inventory)
 	{
 		this.itemName=name;
 		this.itemDescription = description;
-		this.itemPrice=price;
+		this.itemPriceCents=price;
 		this.itemUpcNumber=upc;
 		this.itemInventory=inventory;
 	}
@@ -29,12 +29,12 @@ public class merchItem {
 	
 	public double getItemPrice() 
 	{
-		return this.itemPrice;
+		return this.itemPriceCents;
 	}
 	
-	public void setItemPrice(double price) 
+	public void setItemPrice(int priceCents) 
 	{
-		this.itemPrice = price;
+		this.itemPriceCents= priceCents;
 	}
 	
 	public int getUpcNumber() 

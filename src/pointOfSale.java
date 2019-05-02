@@ -8,17 +8,17 @@ public class pointOfSale {
 		shoppingCart shoppingCart = new shoppingCart();
 		
 		//Load up the inventory
-		merchItem cabbage = new merchItem("Cabbage", "green leafy veg", 1.25, 5455, 12);
-		merchItem lettuce = new merchItem("Cabbage", "green leafy veg", 1.25, 5455, 12);
-		merchItem orange = new merchItem("Cabbage", "green leafy veg", 1.25, 5455, 12);
-		merchItem milk = new merchItem("Cabbage", "green leafy veg", 1.25, 5455, 12);
-		merchItem soda = new merchItem("Cabbage", "green leafy veg", 1.25, 5455, 12);
+		merchItem cabbage = new merchItem("Cabbage", "green leafy veg", 125, 5455, 12);
+		merchItem lettuce = new merchItem("Cabbage", "green leafy veg", 125, 5455, 12);
+		merchItem orange = new merchItem("Cabbage", "green leafy veg", 125, 5455, 12);
+		merchItem milk = new merchItem("Cabbage", "green leafy veg", 125, 5455, 12);
+		merchItem soda = new merchItem("Cabbage", "green leafy veg", 125, 5455, 12);
 		
-		shoppingCart.addItem(cabbage);
-		shoppingCart.addItem(lettuce);
-		shoppingCart.addItem(orange);
-		shoppingCart.addItem(milk);
-		shoppingCart.addItem(soda);
+		shoppingCart.addItem(cabbage, 12);
+		shoppingCart.addItem(lettuce, 3);
+		shoppingCart.addItem(orange, 1);
+		shoppingCart.addItem(milk, 25);
+		shoppingCart.addItem(soda, 2);
 		
 		shoppingCart.printItems();
 		
