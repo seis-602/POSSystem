@@ -22,6 +22,7 @@ public class pointOfSale {
 		
 		shoppingCart.printItems();
 		
+		//This is a change in the file
 		
 		
 		System.out.println("The Main Method has ended.");
