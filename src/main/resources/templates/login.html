@@ -8,7 +8,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>POS System - Login</title>
     
-    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="/css/main.css">
 </head>
 
@@ -52,6 +53,10 @@
 												<label class="custom-control-label" for="customCheck1">Remember
 													password</label>
 											</div>
+
+											<p th:if="${ param.error != null }" class="text-danger" style="margin-top: -0.5em;">
+												<i class="fas fa-exclamation-circle mr-1"></i> Invalid username or password. Please try again.
+											</p>
 
 											<button
 												class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"

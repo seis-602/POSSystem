@@ -89,7 +89,7 @@
                         <resource>
                             <!-- Set source and destination dirs -->
                             <source>
-                                <directory>${project.basedir}/src/main/resources/static/sass</directory>
+                                <directory>${project.basedir}/src/main/resources/assets/scss</directory>
                             </source>
                             <destination>${project.basedir}/src/main/resources/static/css</destination>
                         </resource>
