@@ -17,6 +17,7 @@ public class DatabaseConfiguration {
 			@Override
 			public void run(String... args) throws Exception {
 				
+				// database seeder
 				userRepository.save(new User(1, "testing@gmail.com", "123", "test", "Rhyan", "Foo Kune"));
 				
 			}
