@@ -3,6 +3,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 
 module.exports = {
 	entry: './assets/js/app.js',
@@ -15,11 +17,16 @@ module.exports = {
 	watch: true,
 
 	plugins: [
-		new ExtractTextPlugin('css/main.css')
+		new ExtractTextPlugin('css/main.css'),
+		new VueLoaderPlugin()
 	],
 
 	module: {
 		rules: [
+			{
+				test: /\.vue$/,
+				loader: 'vue-loader'
+			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,

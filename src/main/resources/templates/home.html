@@ -64,6 +64,9 @@
         </div>
         <div class="pos-items-container p-4">
             <div class="container-fluid">
+                <example-component th:attr="'v-bind:products'=${products}"></example-component>
+            </div>
+            <div class="container-fluid">
                 <div class="form-label-group">
                     <input type="text" id="inputSearch" class="form-control" placeholder="Search" required>
                     <label for="inputSearch">Search</label>
