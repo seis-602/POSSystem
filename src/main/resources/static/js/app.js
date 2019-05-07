@@ -1189,7 +1189,6 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
-//
 
 exports.default = {
     props: ['data-products'],
@@ -1217,6 +1216,9 @@ exports.default = {
         }
     },
     methods: {
+        clone: function clone(obj) {
+            return JSON.parse(JSON.stringify(obj));
+        },
         addToCart: function addToCart(product) {
             var item = _.find(this.cartItems, function (item) {
                 return item.id === product.id;
@@ -1231,6 +1233,28 @@ exports.default = {
             } else {
                 product.count = 1;
                 this.cartItems.push(product);
+            }
+
+            // neeed to force update vue component to register change
+            this.$forceUpdate();
+        },
+        removeFromCart: function removeFromCart(item) {
+            var cartItem = _.find(this.cartItems, function (it) {
+                return it.id === item.id;
+            });
+            var product = _.find(this.products, function (product) {
+                return product.id === item.id;
+            });
+            product.remaining++;
+
+            if (cartItem) {
+                if (cartItem.count === 1) {
+                    this.cartItems = _.remove(this.cartItems, function (it) {
+                        return it.id != cartItem.id;
+                    });
+                } else {
+                    cartItem.count--;
+                }
             }
 
             // neeed to force update vue component to register change
@@ -1251,18 +1275,15 @@ exports.default = {
             return total;
         },
         cancelTransaction: function cancelTransaction() {
-            // updating products remaining property updates dataProduct remaining property as well
-            // this.cartItems = [];
-            // this.products = this.dataProducts;
-            // this.$forceUpdate();
-            location.reload();
+            this.cartItems = [];
+            this.products = JSON.parse(JSON.stringify(this.dataProducts));
         },
         checkout: function checkout() {
             // axios post to end point
         }
     },
     mounted: function mounted() {
-        this.products = this.dataProducts;
+        this.products = this.clone(this.dataProducts);
     },
 
     filters: {
@@ -19553,10 +19574,18 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(item.count) +
-                    "\n                    "
+                _vm._v("\n                        " + _vm._s(item.count) + " "),
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.removeFromCart(item)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-minus" })]
                 )
               ]),
               _vm._v(" "),

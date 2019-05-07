@@ -14,7 +14,7 @@ module.exports = {
 		filename: 'js/app.js'
 	},
 
-	watch: true,
+	watch: false,
 
 	plugins: [
 		new ExtractTextPlugin('css/main.css'),

@@ -16,8 +16,7 @@
                         <th scope="row">{{ item.name }}</th>
                         <td class="text-right">{{ item.price | centsToDollars }}</td>
                         <td>
-                            <!-- <input type="number" style="max-width: 40px;" min="1" :value="item.count"> -->
-                            {{ item.count }}
+                            {{ item.count }} <a href="#" @click="removeFromCart(item)"><i class="fas fa-minus"></i></a>
                         </td>
                         <td class="text-right">{{ getSubtotal(item) | centsToDollars }}</td>
                     </tr>
@@ -103,6 +102,9 @@
             }
         },
         methods: {
+            clone(obj) {
+                return JSON.parse(JSON.stringify(obj));
+            },
             addToCart(product) {
                 let item = _.find(this.cartItems, item => item.id === product.id);
                 let inventoryProduct = _.find(this.products, prod => prod.id === product.id);
@@ -117,7 +119,24 @@
                 
                 // neeed to force update vue component to register change
                 this.$forceUpdate();
+            },
+            removeFromCart(item) {
+                let cartItem = _.find(this.cartItems, it => it.id === item.id);
+                let product = _.find(this.products, product => product.id === item.id);
+                product.remaining++;
+
+                if(cartItem) {
+                    if(cartItem.count === 1) {
+                        this.cartItems = _.remove(this.cartItems, it => {
+                            return it.id != cartItem.id;
+                        });
+                    } else {
+                        cartItem.count--;
+                    }
+                }
                 
+                // neeed to force update vue component to register change
+                this.$forceUpdate();
             },
             getSubtotal(item) {
                 return item.price * item.count;
@@ -132,18 +151,15 @@
                 return total;
             },
             cancelTransaction() {
-                // updating products remaining property updates dataProduct remaining property as well
-                // this.cartItems = [];
-                // this.products = this.dataProducts;
-                // this.$forceUpdate();
-                location.reload();
+                this.cartItems = [];
+                this.products = JSON.parse(JSON.stringify(this.dataProducts));
             },
             checkout() {
                 // axios post to end point
             }
         },
         mounted() {
-            this.products = this.dataProducts;
+            this.products = this.clone(this.dataProducts);
         },
         filters: {
             centsToDollars(cents) {
