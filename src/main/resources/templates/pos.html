@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout}" >
+<head>
+ <title>POS System - Home</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="pos-main">
+        <pos-system th:attr="'v-bind:data-products'=${products}"></pos-system>
+    </main>
+
+</body>
+</html>

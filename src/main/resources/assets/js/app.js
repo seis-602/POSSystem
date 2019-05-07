@@ -9,6 +9,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+Vue.component('pos-system', require('./components/POS.vue').default);
+
 const app = new Vue({
     el: '#app',
 });
