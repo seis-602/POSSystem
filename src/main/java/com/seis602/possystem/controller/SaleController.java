@@ -17,7 +17,7 @@ public class SaleController {
 	@Autowired
 	private SaleService saleService;
 	
-	@RequestMapping()
+	@RequestMapping("/sales")
 	public List<Sale>getAllSales() {
 		return saleService.getAllSales();
 	}

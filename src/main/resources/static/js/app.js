@@ -1189,6 +1189,13 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     props: ['data-products'],
@@ -1238,7 +1245,7 @@ exports.default = {
             // neeed to force update vue component to register change
             this.$forceUpdate();
         },
-        removeFromCart: function removeFromCart(item) {
+        removeOneFromCart: function removeOneFromCart(item) {
             var cartItem = _.find(this.cartItems, function (it) {
                 return it.id === item.id;
             });
@@ -1260,16 +1267,42 @@ exports.default = {
             // neeed to force update vue component to register change
             this.$forceUpdate();
         },
+        removeFromCart: function removeFromCart(item) {
+            var _this = this;
+
+            var cartItem = _.find(this.cartItems, function (it) {
+                return it.id === item.id;
+            });
+            var initialProduct = _.find(this.dataProducts, function (product) {
+                return product.id === item.id;
+            });
+
+            if (cartItem) {
+                this.cartItems = _.remove(this.cartItems, function (it) {
+                    return it.id != cartItem.id;
+                });
+
+                this.products = _.map(this.products, function (prod) {
+                    if (prod.id === item.id) {
+                        return _this.clone(initialProduct);
+                    }
+                    return prod;
+                });
+            }
+
+            // // neeed to force update vue component to register change
+            this.$forceUpdate();
+        },
         getSubtotal: function getSubtotal(item) {
             return item.price * item.count;
         },
         getTotal: function getTotal() {
-            var _this = this;
+            var _this2 = this;
 
             var total = 0;
 
             _.forEach(this.cartItems, function (item) {
-                total += _this.getSubtotal(item);
+                total += _this2.getSubtotal(item);
             });
 
             return total;
@@ -19558,52 +19591,83 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "d-flex" }, [
     _c("div", { staticClass: "pos-sidebar bg-light p-4 border-right" }, [
-      _c("table", { staticClass: "table mb-0" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.cartItems, function(item) {
-            return _c("tr", { key: item.id }, [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(item.name))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [
-                _vm._v(_vm._s(_vm._f("centsToDollars")(item.price)))
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v("\n                        " + _vm._s(item.count) + " "),
-                _c(
-                  "a",
-                  {
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.removeFromCart(item)
+      _c("div", [
+        _c("table", { staticClass: "table mb-0" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.cartItems, function(item) {
+              return _c("tr", { key: item.id }, [
+                _c("th", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-danger",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.removeFromCart(item)
+                        }
                       }
-                    }
-                  },
-                  [_c("i", { staticClass: "fas fa-minus" })]
-                )
-              ]),
+                    },
+                    [_c("i", { staticClass: "far fa-trash-alt" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(item.name))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v(_vm._s(_vm._f("centsToDollars")(item.price)))
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "pr-1 text-dark",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.removeOneFromCart(item)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "far fa-minus-square" })]
+                  ),
+                  _vm._v(
+                    " " + _vm._s(item.count) + "\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v(
+                    _vm._s(_vm._f("centsToDollars")(_vm.getSubtotal(item)))
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _vm.cartItems.length
+          ? _c("div", { staticClass: "clearfix p-2" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [
-                _vm._v(_vm._s(_vm._f("centsToDollars")(_vm.getSubtotal(item))))
+              _c("div", { staticClass: "float-right" }, [
+                _c("h5", [
+                  _vm._v(_vm._s(_vm._f("centsToDollars")(_vm.getTotal())))
+                ])
               ])
             ])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "clearfix p-2" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "float-right" }, [
-          _c("h5", [_vm._v(_vm._s(_vm._f("centsToDollars")(_vm.getTotal())))])
-        ])
+          : _c("div", { staticClass: "alert alert-warning my-3" }, [
+              _vm._v(
+                "\n                Add an item to your cart to get started\n            "
+              )
+            ])
       ]),
       _vm._v(" "),
       _c(
@@ -19781,6 +19845,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th"),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Product")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Price")]),

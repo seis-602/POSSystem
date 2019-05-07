@@ -1,36 +1,43 @@
 <template>
     <div class="d-flex">
         <div class="pos-sidebar bg-light p-4 border-right">
+            <div>
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in cartItems" :key="item.id">
+                            <th><a href="#" class="text-danger" @click="removeFromCart(item)"><i class="far fa-trash-alt"></i></a></th>
+                            <th scope="row">{{ item.name }}</th>
+                            <td class="text-right">{{ item.price | centsToDollars }}</td>
+                            <td>
+                                <a href="#" class="pr-1 text-dark" @click="removeOneFromCart(item)"><i class="far fa-minus-square"></i></a> {{ item.count }}
+                            </td>
+                            <td class="text-right">{{ getSubtotal(item) | centsToDollars }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in cartItems" :key="item.id">
-                        <th scope="row">{{ item.name }}</th>
-                        <td class="text-right">{{ item.price | centsToDollars }}</td>
-                        <td>
-                            {{ item.count }} <a href="#" @click="removeFromCart(item)"><i class="fas fa-minus"></i></a>
-                        </td>
-                        <td class="text-right">{{ getSubtotal(item) | centsToDollars }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="clearfix p-2">
-                <div class="float-left">
-                    <h5>Total</h5>
+                <div v-if="cartItems.length" class="clearfix p-2">
+                    <div class="float-left">
+                        <h5>Total</h5>
+                    </div>
+                    <div class="float-right">
+                        <h5>{{ getTotal() | centsToDollars }}</h5>
+                    </div>
                 </div>
-                <div class="float-right">
-                    <h5>{{ getTotal() | centsToDollars }}</h5>
+                <div v-else class="alert alert-warning my-3">
+                    Add an item to your cart to get started
                 </div>
             </div>
+            
             <a href="#" @click.prevent="checkout" class="btn btn-block btn-dark">
                 Checkout
             </a>
@@ -120,7 +127,7 @@
                 // neeed to force update vue component to register change
                 this.$forceUpdate();
             },
-            removeFromCart(item) {
+            removeOneFromCart(item) {
                 let cartItem = _.find(this.cartItems, it => it.id === item.id);
                 let product = _.find(this.products, product => product.id === item.id);
                 product.remaining++;
@@ -136,6 +143,26 @@
                 }
                 
                 // neeed to force update vue component to register change
+                this.$forceUpdate();
+            },
+            removeFromCart(item) {
+                let cartItem = _.find(this.cartItems, it => it.id === item.id);
+                let initialProduct = _.find(this.dataProducts, product => product.id === item.id);
+
+                if(cartItem) {
+                    this.cartItems = _.remove(this.cartItems, it => {
+                        return it.id != cartItem.id;
+                    });
+
+                    this.products = _.map(this.products, (prod) => {
+                            if (prod.id === item.id) {
+                                return this.clone(initialProduct);
+                            }
+                            return prod;
+                        });
+                }
+                
+                // // neeed to force update vue component to register change
                 this.$forceUpdate();
             },
             getSubtotal(item) {
