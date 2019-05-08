@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="alert alert-info text-center mb-0 rounded-0">
-            <b> You are logged in to {{ dataCashRegister.value.name }} </b>
+            <b> You are logged in to {{ cashRegister.name }} </b>
         </div>
         <div class="d-flex">
             <div class="pos-sidebar bg-light p-4 border-right">
@@ -110,6 +110,22 @@
                 });
 
                 return products;
+            },
+            cashRegister() {
+                return this.dataCashRegister.value; 
+            },
+            formData() {
+                
+                return {
+                    'cash_register_id': this.cashRegister.id,
+                    'amount_due': this.getTotal(),
+                    'cart_items': this.cartItems.map((item) => {
+                            return {
+                                'product_id': item.id,
+                                'quantity': item.count,
+                            }
+                        })
+                }
             }
         },
         methods: {
@@ -186,7 +202,16 @@
                 this.products = JSON.parse(JSON.stringify(this.dataProducts));
             },
             checkout() {
-                // axios post to end point
+                let formData = this.formData;
+
+                axios.post("/cash-registers/" + this.cashRegister.id + "/sales", formData)
+                    .then((response) => {
+                        // let sale = response.data
+                        // redirect to /sales/sale.id
+                    })
+                    .catch((errors) => {
+                        alert("something went wrong!");
+                    })
             }
         },
         mounted() {

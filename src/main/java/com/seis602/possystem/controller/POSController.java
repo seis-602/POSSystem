@@ -3,6 +3,8 @@ package com.seis602.possystem.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.Product;
+import com.seis602.possystem.model.Sale;
 import com.seis602.possystem.service.CashRegisterService;
 import com.seis602.possystem.service.ProductService;
 
@@ -28,7 +31,7 @@ public class POSController {
 	private CashRegisterService cashRegisterService;
 	
 	@RequestMapping(value="/cash-registers/{cashRegisterId}/point-of-sale", method=RequestMethod.GET)
-	 public String findOwner(@PathVariable Integer cashRegisterId, Model model) {
+	public String pos(@PathVariable Integer cashRegisterId, Model model) {
 		List<Product> products = productService.getAllProducts();
 		
 		Optional<CashRegister> cashRegister = cashRegisterService.getCashRegister(cashRegisterId);
@@ -41,6 +44,6 @@ public class POSController {
 		model.addAttribute("cashRegister", jsonCashRegister);
 		
 		return "pos";
-	 }
+	}
 	
 }

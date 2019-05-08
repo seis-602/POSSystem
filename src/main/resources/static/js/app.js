@@ -1224,6 +1224,22 @@ exports.default = {
             });
 
             return products;
+        },
+        cashRegister: function cashRegister() {
+            return this.dataCashRegister.value;
+        },
+        formData: function formData() {
+
+            return {
+                'cash_register_id': this.cashRegister.id,
+                'amount_due': this.getTotal(),
+                'cart_items': this.cartItems.map(function (item) {
+                    return {
+                        'product_id': item.id,
+                        'quantity': item.count
+                    };
+                })
+            };
         }
     },
     methods: {
@@ -1316,7 +1332,14 @@ exports.default = {
             this.products = JSON.parse(JSON.stringify(this.dataProducts));
         },
         checkout: function checkout() {
-            // axios post to end point
+            var formData = this.formData;
+
+            axios.post("/cash-registers/" + this.cashRegister.id + "/sales", formData).then(function (response) {
+                // let sale = response.data
+                // redirect to /sales/sale.id
+            }).catch(function (errors) {
+                alert("something went wrong!");
+            });
         }
     },
     mounted: function mounted() {
@@ -1344,6 +1367,7 @@ window._ = __webpack_require__(15);
 
 window.axios = __webpack_require__(18);
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 Vue.component('example-component', __webpack_require__(37).default);
 
@@ -19596,11 +19620,7 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "alert alert-info text-center mb-0 rounded-0" }, [
       _c("b", [
-        _vm._v(
-          " You are logged in to " +
-            _vm._s(_vm.dataCashRegister.value.name) +
-            " "
-        )
+        _vm._v(" You are logged in to " + _vm._s(_vm.cashRegister.name) + " ")
       ])
     ]),
     _vm._v(" "),
