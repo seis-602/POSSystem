@@ -43,12 +43,4 @@ public class POSController {
 		return "pos";
 	 }
 	
-	@GetMapping("/point-of-sale")
-	public String pos(Model model){
-        List<Product> products = productService.getAllProducts();
-        String jsonProducts = new Gson().toJson(products);
-        model.addAttribute("products", jsonProducts);
-        return "pos";
-    }
-	
 }
