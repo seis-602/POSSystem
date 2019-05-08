@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/layout}">
+
+<head>
+    <title>POS System - Home</title>
+</head>
+
+<body>
+
+    <main layout:fragment="content" class="pos-main py-5">
+        <div class="container">
+            <div class="row">
+                <div th:each="cashRegister : ${cashRegisters}" class="col-md-4">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body text-center">
+                            <h3><i class="fas fa-cash-register text-muted"></i></h3>
+                            <h5 class="mb-3" th:text="${cashRegister.name}"></h5>
+                            <a th:href="@{/cash-registers/{id}/point-of-sale(id=${cashRegister.id})}" class="btn btn-primary btn-block">Open Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -8,7 +8,8 @@
 <body>
 
     <main layout:fragment="content" class="pos-main">
-        <pos-system th:attr="'v-bind:data-products'=${products}"></pos-system>
+        <!-- <div th:text="${cashRegister.value.name}"></div> -->
+        <pos-system th:attr="':data-products'=${products}, ':data-cash-register'=${cashRegister}"></pos-system>
     </main>
 
 </body>

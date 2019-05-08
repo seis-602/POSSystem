@@ -6,10 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.CrudRepository;
 
+import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.User;
 import com.seis602.possystem.model.Sale;
-
+import com.seis602.possystem.repository.CashRegisterRepository;
 import com.seis602.possystem.repository.ProductRepository;
 import com.seis602.possystem.repository.UserRepository;
 import com.seis602.possystem.repository.SaleRepository;
@@ -18,7 +19,12 @@ import com.seis602.possystem.repository.SaleRepository;
 public class DatabaseConfiguration {
 	
 	@Bean
-	CommandLineRunner commandLineRunner(UserRepository userRepository, ProductRepository productRepository, SaleRepository saleRepository) {
+	CommandLineRunner commandLineRunner(
+				CashRegisterRepository cashRegisterRepository,
+				ProductRepository productRepository, 
+				SaleRepository saleRepository,
+				UserRepository userRepository
+			) {
 		return new CommandLineRunner() {
 
 			@Override
@@ -34,10 +40,12 @@ public class DatabaseConfiguration {
 				productRepository.save(new Product(5, "Soap", "Health & Beauty", 600, 5));
 				productRepository.save(new Product(6, "Shampoo", "Health & Beauty", 700, 10));
 				
+				cashRegisterRepository.save(new CashRegister(1, "Cash Register 1"));
+				cashRegisterRepository.save(new CashRegister(2, "Cash Register 2"));
+				
 				Map<Integer, String> productList;
 				//Change to product later
 				productList = new HashMap<Integer, String>();
-			
 				productList.put(1, "Test");
 				saleRepository.save(new Sale(1, 12, productList, 100.00));
 			}
