@@ -12,38 +12,38 @@ protected double price;
 		this.supplier = Isupplier;
 		this.price = Iprice;
 	}
-	public void SetName(String name)
+	public void setName(String name)
 	{
 	this.name=name;
 	}
-	public String GetName()
+	public String getName()
 	{
 		return this.name;
 	}
-	public void SetItemNumber(int value)
+	public void getItemNumber(int value)
 	{
 		this.ItemNumber =value;
 	}
-	public int GetItemNumber() {
+	public int getItemNumber() {
 		return this.ItemNumber;
 	}
 	
-	public void SetSupplier(String supp)
+	public void getSupplier(String supp)
 	{
 		this.supplier = supp;
 	}
 	
-	public String GetSupplier()
+	public String getSupplier()
 	{
 		return this.supplier;
 	}
 	
-	public void SetPrice(double value)
+	public void setPrice(double value)
 	{
 		this.price = value;
 	}
 	
-	public double GetPrice()
+	public double getPrice()
 	{
 		return this.price;
 	}
