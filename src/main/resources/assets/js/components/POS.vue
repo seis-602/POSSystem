@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div v-if="processing" class="overlay">
+            <div>
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+        </div>
         <div class="alert alert-info text-center mb-0 rounded-0">
             <b> You are logged in to {{ cashRegister.name }} </b>
         </div>
@@ -28,26 +33,26 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <div v-if="cartItems.length" class="clearfix p-2">
-                        <div class="float-left">
-                            <h5>Total</h5>
+                    <div v-if="cartItems.length">
+                        <div class="clearfix p-2">
+                            <div class="float-left">
+                                <h5>Total</h5>
+                            </div>
+                            <div class="float-right">
+                                <h5>{{ getTotal() | centsToDollars }}</h5>
+                            </div>
                         </div>
-                        <div class="float-right">
-                            <h5>{{ getTotal() | centsToDollars }}</h5>
-                        </div>
+                        <a href="#" @click.prevent="checkout" class="btn btn-block btn-dark">
+                            Checkout
+                        </a>
+                        <a href="#" @click.prevent="cancelTransaction" class="btn btn-block btn-danger">
+                            Cancel Transaction
+                        </a>
                     </div>
                     <div v-else class="alert alert-warning my-3">
                         Add an item to your cart to get started
                     </div>
                 </div>
-                
-                <a href="#" @click.prevent="checkout" class="btn btn-block btn-dark">
-                    Checkout
-                </a>
-                <a href="#" @click.prevent="cancelTransaction" class="btn btn-block btn-danger">
-                    Cancel Transaction
-                </a>
             </div>
             <div class="pos-items-container p-4">
                 <div class="container-fluid">
@@ -95,6 +100,7 @@
             searchQuery: '',
             products: [],
             cartItems: [],
+            processing: false,
         }),
         computed: {
             filteredProducts() {
@@ -129,9 +135,6 @@
             }
         },
         methods: {
-            clone(obj) {
-                return JSON.parse(JSON.stringify(obj));
-            },
             addToCart(product) {
                 let item = _.find(this.cartItems, item => item.id === product.id);
                 let inventoryProduct = _.find(this.products, prod => prod.id === product.id);
@@ -202,26 +205,28 @@
                 this.products = JSON.parse(JSON.stringify(this.dataProducts));
             },
             checkout() {
+                this.processing = true;
                 let formData = this.formData;
-
-                axios.post("/cash-registers/" + this.cashRegister.id + "/sales", formData)
-                    .then((response) => {
-                        // let sale = response.data
-                        // redirect to /sales/sale.id
-                    })
-                    .catch((errors) => {
-                        alert("something went wrong!");
-                    })
+                setTimeout(() => {
+                    axios.post("/cash-registers/" + this.cashRegister.id + "/sales", formData)
+                        .then((response) => {
+                            // let sale = response.data
+                            // redirect to /sales/sale.id
+                        })
+                        .catch((errors) => {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            });
+                            this.processing = false;
+                        })
+                }, 1000)
+                
             }
         },
         mounted() {
             this.products = this.clone(this.dataProducts);
         },
-        filters: {
-            centsToDollars(cents) {
-                const dollars = cents / 100;
-                return dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
-            }
-        }
     }
 </script>

@@ -8,9 +8,8 @@
 <body>
 
     <main layout:fragment="content" class="pos-main">
-        <!-- <div th:text="${cashRegister.value.name}"></div> -->
         <pos-system th:attr="':data-products'=${products}, ':data-cash-register'=${cashRegister}"></pos-system>
     </main>
-
+    
 </body>
 </html>

@@ -18,7 +18,7 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping("/guest/users")
-	public List<User> getAllTopics() {
+	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
 	

@@ -36,8 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.authorizeRequests()
-        	.antMatchers("/css/**", "/js/**").permitAll()
-        	.antMatchers("/guest", "/guest/**").permitAll()
+        	.antMatchers("/css/**", "/js/**", "/images/**").permitAll()
+        	.antMatchers("/guest", "/guest/**", "/api/**").permitAll()
         	.anyRequest().authenticated()
         	.and().formLogin().loginPage("/login")
         		.defaultSuccessUrl("/point-of-sale").permitAll();

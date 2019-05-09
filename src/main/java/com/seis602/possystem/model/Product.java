@@ -22,18 +22,21 @@ public class Product {
     private int price;
     @Column(name = "remaining")
     private int remaining;
+    @Column(name = "requested_amount")
+    private int requestedAmount;
 
 	public Product() {
 		
     }
 
-	public Product(int id, String name, String category, int price, int remaining) {
+	public Product(int id, String name, String category, int price, int remaining, int requestedAmount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.price = price;
 		this.remaining = remaining;
+		this.requestedAmount = requestedAmount;
 	}
 	
 	public int getId() {

@@ -21,13 +21,16 @@
     <div id="navbarSupportedContent" class="navbar-collapse collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Dashboard</a>
+                <a th:if="${#httpServletRequest.requestURI == '/home'}" class="nav-link active" href="/home">Dashboard</a>
+                <a th:unless="${#httpServletRequest.requestURI == '/home'}" class="nav-link" href="/home">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/">POS</a>
+                <a th:if="${#strings.contains(#httpServletRequest.requestURI, 'cash-registers')}" class="nav-link active" href="/cash-registers">POS</a>
+                <a th:unless="${#strings.contains(#httpServletRequest.requestURI, 'cash-registers')}" class="nav-link" href="/cash-registers">POS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Inventory</a>
+                <a th:if="${#strings.contains(#httpServletRequest.requestURI, 'inventories')}" class="nav-link active" href="/inventories">Inventory</a>
+                <a th:unless="${#strings.contains(#httpServletRequest.requestURI, 'inventories')}" class="nav-link" href="/inventories">Inventory</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/">Sales</a>
@@ -40,7 +43,7 @@
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Rhyan Foo Kune
+                    <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
                     <span class="caret"></span>
                 </a>
                 <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
@@ -48,11 +51,11 @@
                         <i class="fas fa-user-circle pr-1"></i> Profile
                     </a>
                     <a class="dropdown-item" href="#">
-                        <i class="fas fa-info-circle pr-1"></i> Register Details
+                        <i class="fas fa-info-circle pr-1"></i> Sales Details
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="" class="dropdown-item">
-                        <i class="fas fa-sign-out-alt pr-1"></i> Close Register
+                        <i class="fas fa-sign-out-alt pr-1"></i> Logout
                     </a>
                 </div>
             </li>
