@@ -40,7 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.antMatchers("/guest", "/guest/**", "/api/**").permitAll()
         	.anyRequest().authenticated()
         	.and().formLogin().loginPage("/login")
-        		.defaultSuccessUrl("/point-of-sale").permitAll();
+        		.defaultSuccessUrl("/home").permitAll()
+        	.and().logout()
+        		.logoutUrl("/logout").logoutSuccessUrl("/login");
         
     }
     
