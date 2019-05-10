@@ -26,7 +26,7 @@
                     <label>{{ product.requestedAmount }} Previously Requested</label>
                     <input type="number" class="form-control" v-model="receivedAmount">
                 </div>
-                <a href="#" @click.prevent="requestInventory" class="btn btn-success btn-block">Received</a>
+                <a href="#" @click.prevent="receivedInventory" class="btn btn-success btn-block">Received</a>
             </div>
         </div>
     </div>
@@ -38,42 +38,70 @@
         data: () => ({
             product: null,
             requestAmount: "",
-            receivedAmount: 0,
+            receivedAmount: "",
             processing: false,
         }),
         computed: {
-            formData() {
-                return {
-                    request_amount: this.requestAmount, 
-                }
-            }
+            
         },
         methods: {
             requestInventory() {
                 this.processing = true;
-                let formData = {
-                    request_amount: this.requestAmount, 
-                }
-                // post axios
-                // product.requestedAmount =+ request.request_amount
+                let formData = { request_amount: parseInt(this.requestAmount) }
+
+                setTimeout(() => {
+                    axios.post("/inventories/" + this.dataProduct.id + "/request", formData)
+                        .then((response) => {
+                            this.processing = false;
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Requested!',
+                                text: 'An order of ' + this.requestAmount + ' more ' + this.product.name + ' has been requested to supplier'
+                            })
+                            setTimeout(() => { window.location.href = "/inventories"; }, 1500);
+                        })
+                        .catch((errors) => {
+                            this.processing = false;
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            });
+                        })
+                }, 1000);
             },
-            requestInventory() {
+            receivedInventory() {
                 this.processing = true;
-                let formData = {
-                    received_amount: this.receivedAmount, 
-                }
-                // post axios
-                // product.requestedAmount =- request.received_amount
+                let formData = { received_amount: parseInt(this.receivedAmount) }
+
+                setTimeout(() => {
+                    axios.post("/inventories/" + this.dataProduct.id + "/received", formData)
+                        .then((response) => {
+                            this.processing = false;
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Received!',
+                                text: 'An package of ' + this.receivedAmount + ' ' + this.product.name + ' has been received from supplier'
+                            })
+                            setTimeout(() => { window.location.href = "/inventories"; }, 1500);
+                        })
+                        .catch((errors) => {
+                            this.processing = false;
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            });
+                        })
+                }, 700);
             }
         },
         mounted() {
-            this.product = this.clone(this.dataProduct).value;
+            this.product = this.clone(this.dataProduct);
         },
         watch: {
             product(value) {
-                if (value) {
-                    this.receivedAmount = value.requestedAmount;
-                }
+                
             },
             receivedAmount(value) {
                 if (this.product && value > this.product.requestedAmount) {

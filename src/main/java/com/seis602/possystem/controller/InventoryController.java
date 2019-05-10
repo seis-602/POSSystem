@@ -30,7 +30,7 @@ public class InventoryController {
 	@GetMapping("/inventories/{productId}")
 	public String edit(@PathVariable Integer productId, Model model){
 		
-		Optional<Product> product = productService.getProduct(productId);
+		Product product = productService.getProduct(productId);
 		// exception handling
 		
 		String jsonProduct = new Gson().toJson(product);

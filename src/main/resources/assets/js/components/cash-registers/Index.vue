@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <h2 class="mb-4">Select a cash register</h2>
         <div class="row">
             <div v-for="register in dataCashRegisters" class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">

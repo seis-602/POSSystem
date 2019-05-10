@@ -1,6 +1,8 @@
 package com.seis602.possystem.controller;
 
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,12 +42,12 @@ public class SaleController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/cash-registers/{cashRegisterId}/sales")
-	public Object postSale(@PathVariable Integer cashRegisterId, HttpServletRequest request) {
+	public Object postSale(@PathVariable Integer cashRegisterId, @RequestBody Map<String, Object> payload) throws Exception {
 		
-		// request.getParameter("cash_register_id");
-		// request.getParameter("amount_due");
-		// request.getParameter("cart_items");
+		System.out.println(payload.get("cash_register_id"));
+		System.out.println(payload.get("amount_due"));
+		System.out.println(payload.get("cart_items"));
 		
-		return request.getParameter("cash_register_id");
+		return "done";
 	}
 }

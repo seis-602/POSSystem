@@ -43,6 +43,22 @@ public class Product {
 		return id;
 	}
 
+	public int getRemaining() {
+		return remaining;
+	}
+
+	public void setRemaining(int remaining) {
+		this.remaining = remaining;
+	}
+
+	public int getRequestedAmount() {
+		return requestedAmount;
+	}
+
+	public void setRequestedAmount(int requestedAmount) {
+		this.requestedAmount = requestedAmount;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
