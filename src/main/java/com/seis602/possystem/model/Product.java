@@ -10,6 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product")
 public class Product {
+	
+	private static int idCount = 1;
 
 	@Id
     @Column(name = "id")
@@ -29,9 +31,9 @@ public class Product {
 		
     }
 
-	public Product(int id, String name, String category, int price, int remaining, int requestedAmount) {
+	public Product(String name, String category, int price, int remaining, int requestedAmount) {
 		super();
-		this.id = id;
+		this.id = this.idCount++;
 		this.name = name;
 		this.category = category;
 		this.price = price;

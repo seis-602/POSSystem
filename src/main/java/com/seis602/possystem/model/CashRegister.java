@@ -10,6 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cash_registers")
 public class CashRegister {
+	
+	private static int idCount = 1;
 
 	@Id
     @Column(name = "id")
@@ -25,7 +27,7 @@ public class CashRegister {
 
     public CashRegister(int id, String name, int balance) {
     	super();
-		this.id = id;
+    	this.id = this.idCount++;
 		this.name = name;
 		this.balance = balance;
 	}

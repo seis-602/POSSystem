@@ -12,9 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @Entity
 @Table(name = "users")
 public class User {
+
+	private static int idCount = 1;
 	
 	@Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
     @Column(name = "email")
@@ -32,9 +33,9 @@ public class User {
 		
     }
 
-    public User(int id, String email, String password, String username, String firstName, String lastName) {
+    public User(String email, String password, String username, String firstName, String lastName) {
 		super();
-		this.id = id;
+		this.id = this.idCount++;
 		this.email = email;
 		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 		this.username = username;
