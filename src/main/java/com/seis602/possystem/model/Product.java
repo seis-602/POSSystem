@@ -22,6 +22,8 @@ public class Product {
     private String category;
     @Column(name = "price")
     private int price;
+    @Column(name = "supplier")
+    private String supplier;
     @Column(name = "remaining")
     private int remaining;
     @Column(name = "requested_amount")
@@ -31,16 +33,25 @@ public class Product {
 		
     }
 
-	public Product(String name, String category, int price, int remaining, int requestedAmount) {
+	public Product(String name, String category, int price, String supplier, int remaining, int requestedAmount) {
 		super();
 		this.id = this.idCount++;
 		this.name = name;
 		this.category = category;
 		this.price = price;
+		this.supplier = supplier;
 		this.remaining = remaining;
 		this.requestedAmount = requestedAmount;
 	}
 	
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
 	public int getId() {
 		return id;
 	}

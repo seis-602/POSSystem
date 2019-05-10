@@ -3,6 +3,7 @@ package com.seis602.possystem.api;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,23 +20,31 @@ public class ApiInventoryController {
 	private ProductService productService;	
 
 	@RequestMapping(method=RequestMethod.POST, value="/inventories/{productId}/request")
-	public Product requestInventory(@PathVariable Integer productId, @RequestBody Map<String, Object> payload) {
+	public ResponseEntity requestInventory(@PathVariable Integer productId, @RequestBody Map<String, Object> payload) {
 
 		Product product = productService.getProduct(productId);
+		
+		if (product == null) {
+            ResponseEntity.badRequest().build();
+        }
 		
 		int amount = product.getRequestedAmount() + (int)payload.get("request_amount");
 		product.setRequestedAmount(amount);
 		
 		productService.saveProduct(product);
 		
-		return product;
+		return ResponseEntity.ok().build();
 		
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/inventories/{productId}/received")
-	public Product receivedInventory(@PathVariable Integer productId, @RequestBody Map<String, Object> payload) {
+	public ResponseEntity receivedInventory(@PathVariable Integer productId, @RequestBody Map<String, Object> payload) {
 		
 		Product product = productService.getProduct(productId);
+
+		if (product == null) {
+            ResponseEntity.badRequest().build();
+        }
 		
 		int requestedAmount = product.getRequestedAmount() - (int)payload.get("received_amount");
 		int inventoryAmount = product.getRemaining() + (int)payload.get("received_amount");
@@ -45,6 +54,6 @@ public class ApiInventoryController {
 		
 		productService.saveProduct(product);
 		
-		return product;
+		return ResponseEntity.ok().build();
 	}
 }
