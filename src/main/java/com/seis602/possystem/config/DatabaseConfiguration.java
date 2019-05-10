@@ -42,12 +42,19 @@ public class DatabaseConfiguration {
 				
 				cashRegisterRepository.save(new CashRegister(1, "Cash Register 1"));
 				cashRegisterRepository.save(new CashRegister(2, "Cash Register 2"));
-				
-				Map<Integer, String> productList;
+				Date d = new Date();
+				Map<Integer, Product> shoppingCart;
 				//Change to product later
-				productList = new HashMap<Integer, String>();
-				productList.put(1, "Test");
-				saleRepository.save(new Sale(1, 12, productList, 100.00));
+				shoppingCart = new HashMap<Integer, Product>();
+				
+				Product p = new Product(7, "Test", "Test124", 300, 2);
+				Product z = new Product(8, "Test2", "Test3", 400, 3);
+				productRepository.save(p);
+				productRepository.save(z);
+				shoppingCart.put(1, p);
+				shoppingCart.put(2, z);
+				saleRepository.save(new Sale(2, shoppingCart, 100.00, 1, d, 3));
+				//saleRepository.save(new Sale(3, shoppingCart, 115.00, 1, d));
 			}
 			
 		};
