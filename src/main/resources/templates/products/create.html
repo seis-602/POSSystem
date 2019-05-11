@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/layout}">
 
 <head>
-    <title>POS System - Home</title>
+    <title>POS System - Inventories</title>
 </head>
 
 <body>
 
-    <main layout:fragment="content" class="py-5">
-        <cash-registers-index th:attr="':data-cash-registers'=${cashRegisters}"></cash-registers-index>
+    <main layout:fragment="content">
+        <products-create></products-create>
     </main>
 
 </body>

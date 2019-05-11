@@ -10,21 +10,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cash_registers")
 public class CashRegister {
+	
+	private static int idCount = 1;
 
 	@Id
     @Column(name = "id")
     private int id;
     @Column(name = "name")
     private String name;
+    @Column(name = "balance")
+    private int balance;
     
     public CashRegister() {
 		
     }
 
-    public CashRegister(int id, String name) {
+    public CashRegister(int id, String name, int balance) {
     	super();
-		this.id = id;
+    	this.id = this.idCount++;
 		this.name = name;
+		this.balance = balance;
 	}
 
 	public int getId() {
@@ -41,6 +46,14 @@ public class CashRegister {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
 	}
     
 }

@@ -6,116 +6,12 @@
  <title>POS System - Home</title>
 </head>
 <body>
-
-    <main layout:fragment="content" class="d-flex pos-main">
-        <div class="pos-sidebar bg-light p-4 border-right">
-
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Bread</th>
-                        <td class="text-right">3.00</td>
-                        <td>
-                            <input type="number" style="max-width: 40px;" min="1" value="1">
-                        </td>
-                        <td class="text-right">3.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Honey</th>
-                        <td class="text-right">3.00</td>
-                        <td>
-                            <input type="number" style="max-width: 40px;" min="1" value="1">
-                        </td>
-                        <td class="text-right">3.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Shoes</th>
-                        <td class="text-right">40.00</td>
-                        <td>
-                            <input type="number" style="max-width: 40px;" min="1" value="2">
-                        </td>
-                        <td class="text-right">80.00</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="clearfix p-2">
-                <div class="float-left">
-                    <h5>Total</h5>
-                </div>
-                <div class="float-right">
-                    <h5>$86.00</h5>
-                </div>
-            </div>
-            <a href="#" class="btn btn-block btn-dark">
-                Checkout
-            </a>
-            <a href="#" class="btn btn-block btn-danger">
-                Cancel Transaction
-            </a>
-        </div>
-        <div class="pos-items-container p-4">
-            <div class="container-fluid">
-                <example-component th:attr="'v-bind:products'=${products}"></example-component>
-            </div>
-            <div class="container-fluid">
-                <div class="form-label-group">
-                    <input type="text" id="inputSearch" class="form-control" placeholder="Search" required>
-                    <label for="inputSearch">Search</label>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="card mb-4 shadow-sm">
-                            <div class="card-body">
-                                <img class="w-100 rounded mb-4" src="http://via.placeholder.com/640x360" alt="">
-                                <h5 class="mb-0">Bread</h5>
-                                <p class="small text-muted mb-1">Food</p>
-                                <div class="clearfix mb-3">
-                                    <div class="float-left">
-                                        <span class="badge badge-pill badge-success">In Stock</span>
-                                    </div>
-                                    <div class="float-right">
-                                        $3.00
-                                    </div>
-                                </div>
-                                <a href="#" class="btn btn-dark btn-block">
-                                    Add to Cart
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="card mb-4 shadow-sm">
-                            <div class="card-body">
-                                <img class="w-100 rounded mb-4" src="http://via.placeholder.com/640x360" alt="">
-                                <h5 class="mb-0"><strike class="text-muted">Honey</strike></h5>
-                                <p class="small text-muted mb-1">Food</p>
-                                <div class="clearfix mb-3">
-                                    <div class="float-left">
-                                        <span class="badge badge-pill badge-danger">Out Of Stock</span>
-                                    </div>
-                                    <div class="float-right">
-                                        $3.00
-                                    </div>
-                                </div>
-                                <a href="#" class="btn btn-dark btn-block disabled" disabled>
-                                    Add to Cart
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main layout:fragment="content">
+        <div class="container py-5">
+            <h1>Welcome <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>,</h1>
+            <p class="mb-4">Let's start selling together and make some money!</p>
+            <a href="/cash-registers" class="btn btn-primary">Get Started <i class="fas fa-arrow-circle-right pl-1"></i></a>
         </div>
     </main>
-
 </body>
 </html>

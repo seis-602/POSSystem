@@ -6,11 +6,13 @@ This java project is part of the University of St Thomas SEIS602 course.
 
 ## Point Of Sale System
 
-DESCRIPTION
+#### Objective 
+The objective of this assignment is to get you familiar with all (mostly) Java basics and some advance concepts, which include the syntax, Java input/output, arrays, lists, classes, objects, inheritance and interfaces utilizing polymorphism. After performing this assignment, you should be able to master these Java concepts. You need to use Eclipse for this assignment. 
+
+#### Task 
+In this assignment, the overall task is to develop an application that records sales and handle payments as in a retail store.  Study the POS Project Requirements below. You are recommended to use a GUI for your application; it could be web if you like. 
 
 ## Tools
-
-TOOLS USED
 
 MVC Framework
 

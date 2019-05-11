@@ -2,6 +2,7 @@ package com.seis602.possystem.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,18 @@ public class ProductService {
 		productRepository.findAll().forEach(products::add);
 		return products;
 	}
+	
+	public Product getProduct(int id) {
+		return productRepository.findById(id).orElse(null);
+	}
+	
+	public Product saveProduct(Product product) {
+		return productRepository.save(product);
+	}
+	
+	public void deleteProduct(int id) {
+		Product product = this.getProduct(id);
+		productRepository.delete(product);
+    }
 	
 }
