@@ -25,6 +25,7 @@ public class SaleService {
 	public Optional<Sale> getSale(Integer id) {
 		return saleRepository.findById(id);
 	}
+	
 	public void addSale(Sale sale) {
 		saleRepository.save(sale);
 	}

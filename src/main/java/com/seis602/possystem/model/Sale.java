@@ -21,30 +21,33 @@ public class Sale {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
-	//Sale number
-	@Column(name = "sale_number")
-	private Integer saleNumber;
 	//Item objects
 	@ElementCollection
 	@CollectionTable(name="PRODUCTS")
-	@MapKeyJoinColumn(name = "Sale_ID")
 	@Column(name = "Product_List")
-	private Map<Integer, String> productList;
+	private Map<Integer, Product> productList;
 	//Amount
-	@Column(name = "sale_amount")
-	private Double finalAmount;
+	@Column(name = "sale_total")
+	private Double saleTotal;
+	@Column(name = "userID")
+	private Integer userID;
+	@Column(name = "dateOfSale")
+	private Date dateAndTime;
+	@Column(name = "resiterID")
+	private Integer registerID;
 	
 	public Sale() {
 		
 	}
 
-	public Sale(int id, int saleNumber, Map productList, Double finalAmount) {
+	public Sale(int id, Map<Integer, Product> productList, Double saleTotal, Integer userID, Date dateAndTime, Integer registerID) {
 		super();
 		this.id = id;
-		this.saleNumber = saleNumber;
 		this.productList = productList;
-		this.finalAmount = finalAmount;
-		
+		this.saleTotal = saleTotal;
+		this.dateAndTime = dateAndTime;
+		this.userID = userID;
+		this.registerID = registerID;
 	}
 	
 	public int getID() {
@@ -55,18 +58,23 @@ public class Sale {
 		this.id = id;
 	}
 	
-	public int getSaleNumber() {
-		return saleNumber;
+	public Object getSaleTotal() {
+		return saleTotal;
 	}
 	
-	public double getFinalAmount() {
-		return finalAmount;
+	public Map<Integer, Product> getProductList() {
+		return this.productList;
 	}
 	
-	//public Product getProducts() {
-		//return productList;
-	//}
-	//Implement
+	public Integer getUserID() {
+		return this.userID;
+	}
 	
+	public Date getDateAndTime() {
+		return this.dateAndTime;
+	}
 	
+	public Integer getRegisterID() {
+		return this.registerID;
+	}
 }
