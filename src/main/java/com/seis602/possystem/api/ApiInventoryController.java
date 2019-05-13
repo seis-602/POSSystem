@@ -28,10 +28,7 @@ public class ApiInventoryController {
             ResponseEntity.badRequest().build();
         }
 		
-		int amount = product.getRequestedAmount() + (int)payload.get("request_amount");
-		product.setRequestedAmount(amount);
-		
-		productService.saveProduct(product);
+		productService.setRequestedInventory(product, (int)payload.get("request_amount"));
 		
 		return ResponseEntity.ok().build();
 		
@@ -46,13 +43,7 @@ public class ApiInventoryController {
             ResponseEntity.badRequest().build();
         }
 		
-		int requestedAmount = product.getRequestedAmount() - (int)payload.get("received_amount");
-		int inventoryAmount = product.getRemaining() + (int)payload.get("received_amount");
-		
-		product.setRequestedAmount(requestedAmount);
-		product.setRemaining(inventoryAmount);
-		
-		productService.saveProduct(product);
+		productService.setReceivedInventory(product, (int)payload.get("received_amount"));
 		
 		return ResponseEntity.ok().build();
 	}
