@@ -53,8 +53,9 @@ public class SaleController {
 		Date saleDate = new Date();
 		ArrayList<Object> items = (ArrayList) payload.get("cart_items");
 		items.forEach((Object item) -> getProducts(item));
+		
 		Double saleTotal = new Double(payload.get("amount_due").toString());
-		updateBalanceInCashRegister(cashRegisterId, 3);
+		updateBalanceInCashRegister(cashRegisterId, saleTotal);
 		sale.save(new Sale(saleID, shoppingCart, saleTotal, 1, saleDate, cashRegisterId));
 		saleID++;
 	}
@@ -63,7 +64,8 @@ public class SaleController {
 		ObjectMapper oMapper = new ObjectMapper();
 		Map<String, Object> mapItem = oMapper.convertValue(item, Map.class);
 		Integer productID = (int) mapItem.get("product_id");
-		Integer quantity = (int) mapItem.get("quantity");
+		//Temporary solution to double issue, works for now
+		Double quantity = transformQuantity(mapItem.get("quantity"));
 		Product p = products.getProduct(productID);
 		this.shoppingCart.put(key, p);
 		updateInventory(productID, quantity);
@@ -71,7 +73,7 @@ public class SaleController {
 		key++;
 	}
 	
-	public void updateInventory(Integer productID, Integer quantity) {
+	public void updateInventory(Integer productID, Double quantity) {
 		Product p = products.getProduct(productID);
 		int remaining = p.getRemaining();
 		remaining -= quantity;
@@ -82,7 +84,7 @@ public class SaleController {
 		}
 	}
 	
-	public void updateBalanceInCashRegister(Integer cashRegisterID, Integer saleTotal) {
+	public void updateBalanceInCashRegister(Integer cashRegisterID, Double saleTotal) {
 		CashRegister cR = cashRegister.getCashRegisterByID(cashRegisterID);
 		int balance = cR.getBalance();
 		balance += saleTotal;
@@ -91,7 +93,12 @@ public class SaleController {
 	
 	public void reorderProducts(Product p) {
 		//Not sure how we want to handle this,
-		//right now I'm just re-stocking back to the requested amount
+		//Right now I'm just re-stocking back to the requested/threshold amount
 		p.setRemaining(p.getRequestedAmount());
+	}
+	
+	public double transformQuantity(Object q) {
+		Double quantity = (Double.parseDouble(q.toString())/100);
+		return quantity;
 	}
 }
