@@ -1,5 +1,7 @@
 package com.seis602.possystem.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,11 @@ public class ApiProductController {
 
 	@Autowired
 	private ProductService productService;	
+	
+	@RequestMapping(method=RequestMethod.GET, value="/api/products")
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
+	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/products")
 	public Product store(@RequestBody Product product) {

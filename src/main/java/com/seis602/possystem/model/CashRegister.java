@@ -25,7 +25,7 @@ public class CashRegister {
 		
     }
 
-    public CashRegister(int id, String name, int balance) {
+    public CashRegister(String name, int balance) {
     	super();
     	this.id = this.idCount++;
 		this.name = name;

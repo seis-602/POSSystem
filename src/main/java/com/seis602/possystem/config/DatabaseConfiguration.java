@@ -10,10 +10,12 @@ import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.User;
 import com.seis602.possystem.model.Sale;
+import com.seis602.possystem.model.Shift;
 import com.seis602.possystem.repository.CashRegisterRepository;
 import com.seis602.possystem.repository.ProductRepository;
 import com.seis602.possystem.repository.UserRepository;
 import com.seis602.possystem.repository.SaleRepository;
+import com.seis602.possystem.repository.ShiftRepository;
 
 @Configuration
 public class DatabaseConfiguration {
@@ -40,10 +42,9 @@ public class DatabaseConfiguration {
 				productRepository.save(new Product("Soap", "Health & Beauty", 600, "Target", 5, 0));
 				productRepository.save(new Product("Shampoo", "Health & Beauty", 700, "Target", 10, 0));
 
-				cashRegisterRepository.save(new CashRegister(1, "Cash Register 1", 10000));
-				cashRegisterRepository.save(new CashRegister(2, "Cash Register 2", 0));
-				cashRegisterRepository.save(new CashRegister(3, "Cash Register 3", 15000));
-				
+				cashRegisterRepository.save(new CashRegister("Cash Register 1", 10000));
+				cashRegisterRepository.save(new CashRegister("Cash Register 2", 0));
+				cashRegisterRepository.save(new CashRegister("Cash Register 3", 15000));
 				
 				Date d = new Date();
 				Map<Integer, Product> shoppingCart;

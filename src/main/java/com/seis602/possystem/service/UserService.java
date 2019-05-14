@@ -22,8 +22,8 @@ public class UserService {
 		return users;
 	}
 	
-	public Optional<User> getUser(Integer id) {
-		return userRepository.findById(id);
+	public User getUser(Integer id) {
+		return userRepository.findById(id).orElse(null);
 	}
 	
 	public void addUser(User user) {

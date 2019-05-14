@@ -41,14 +41,6 @@ public class Product {
 		this.remaining = remaining;
 		this.requestedAmount = requestedAmount;
 	}
-	
-	public String getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(String supplier) {
-		this.supplier = supplier;
-	}
 
 	public int getId() {
 		return id;
@@ -96,6 +88,14 @@ public class Product {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
 	}
     
 }
