@@ -18,6 +18,8 @@ Vue.component('pos-system', require('./components/POS.vue').default);
 Vue.component('inventories-index', require('./components/inventories/Index.vue').default);
 Vue.component('inventories-edit', require('./components/inventories/Edit.vue').default);
 
+Vue.component('sales-index', require('./components/sales/Index.vue').default);
+
 Vue.component('products-create', require('./components/products/Create.vue').default);
 
 Vue.mixin({ mixins: [globalMixins] });

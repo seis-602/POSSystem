@@ -22,6 +22,11 @@ public class CashRegisterService {
 		return cashRegisters;
 	}
 	
+	public CashRegister getCashRegisterByID(int id) {
+		return cashRegisterRepository.findById(id).orElse(null);
+		
+	}
+	
 	public Optional<CashRegister> getCashRegister(Integer id) {
 		return cashRegisterRepository.findById(id);
 	}

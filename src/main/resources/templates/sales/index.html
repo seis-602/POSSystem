@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/layout}">
+
+<head>
+    <title>POS System - Sales</title>
+</head>
+
+<body>
+
+    <main layout:fragment="content" class="py-5">
+        <sales-index th:attr="':data-sales'=${sales}"></sales-index>
+    </main>
+
+</body>
+
+</html>
