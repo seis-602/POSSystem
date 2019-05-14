@@ -33,7 +33,7 @@ public class Sale {
 	private Integer userID;
 	@Column(name = "dateOfSale")
 	private Date dateAndTime;
-	@Column(name = "resiterID")
+	@Column(name = "registerID")
 	private Integer registerID;
 	
 	public Sale() {

@@ -45,19 +45,7 @@ public class DatabaseConfiguration {
 				cashRegisterRepository.save(new CashRegister(3, "Cash Register 3", 15000));
 				
 				
-				Date d = new Date();
-				Map<Integer, Product> shoppingCart;
-				shoppingCart = new HashMap<Integer, Product>();
-				
-				Product p = new Product("Test", "Test124", 300, "Target", 5, 2);
-				Product z = new Product("Test2", "Test3", 400, "Walmart", 3, 0);
-				productRepository.save(p);
-				productRepository.save(z);
-				shoppingCart.put(1, p);
-				shoppingCart.put(2, z);
-				saleRepository.save(new Sale(2, shoppingCart, 100.00, 1, d, 3));
-				//saleRepository.save(new Sale(3, shoppingCart, 115.00, 1, d));
-			}
+		}
 			
 		};
 	}
