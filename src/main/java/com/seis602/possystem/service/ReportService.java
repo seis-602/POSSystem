@@ -151,13 +151,13 @@ public class ReportService {
         	
         	Row row = sheet.createRow(rowNum++);
         	
-        	// "First Name", "Last Name", "Shift Id", "Drawer Amount", "Shift Duration"
+        	// "Shift Id", "First Name", "Last Name", "Drawer Amount", "Shift Duration"
         	Cell cell_1 = row.createCell(0);
-        	cell_1.setCellValue(shift.getUser().getFirstName());
+        	cell_1.setCellValue(shift.getId());
         	Cell cell_2 = row.createCell(1);
-        	cell_2.setCellValue(shift.getUser().getLastName());
+        	cell_2.setCellValue(shift.getUser().getFirstName());
         	Cell cell_3 = row.createCell(2);
-        	cell_3.setCellValue(shift.getId());
+        	cell_3.setCellValue(shift.getUser().getLastName());
         	Cell cell_4 = row.createCell(3);
         	cell_4.setCellValue(this.centsToDollar(shift.getDrawerAmount()));
         	Cell cell_5 = row.createCell(4);
