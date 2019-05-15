@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -119,7 +121,7 @@ public class ReportService {
 		
 		List<Shift> shifts = shiftService.getAllShifts();
 		
-	    String[] titles = {"Shift Id", "First Name", "Last Name", "Drawer Amount", "Shift Duration"};
+	    String[] titles = {"Shift Id", "First Name", "Last Name", "Drawer Amount", "Start Time", "Shift Duration"};
 	    
 	    XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Cashier Report");
@@ -142,6 +144,9 @@ public class ReportService {
             cell.setCellStyle(headerStyle);
         }
         
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        
         for (Shift shift : shifts) {
         	
         	Row row = sheet.createRow(rowNum++);
@@ -156,7 +161,9 @@ public class ReportService {
         	Cell cell_4 = row.createCell(3);
         	cell_4.setCellValue(this.centsToDollar(shift.getDrawerAmount()));
         	Cell cell_5 = row.createCell(4);
-        	cell_5.setCellValue(shift.getDuration());
+        	cell_5.setCellValue(simpleDateFormat.format(shift.getStartTime()));
+        	Cell cell_6 = row.createCell(5);
+        	cell_6.setCellValue(shift.getDuration());
         }
         
         // This sets the width of the columns to match the length of the text
@@ -189,7 +196,7 @@ public class ReportService {
 		
 		List<Sale> sales = saleService.getAllSales();
 		
-	    String[] titles = {"Sale Id", "Register ID", "Cashier", "Sale Amount"};
+	    String[] titles = {"Sale Id", "Register ID", "Cashier", "Sale Amount", "Date"};
 	    
 	    XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Cashier Report");
@@ -212,6 +219,9 @@ public class ReportService {
             cell.setCellStyle(headerStyle);
         }
         
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        
         for (Sale sale : sales) {
         	
         	Row row = sheet.createRow(rowNum++);
@@ -225,6 +235,8 @@ public class ReportService {
         	cell_3.setCellValue(sale.getUser().getFirstName() + " " + sale.getUser().getLastName());
         	Cell cell_4 = row.createCell(3);
         	cell_4.setCellValue(this.centsToDollar(sale.getSaleTotal()));
+        	Cell cell_5 = row.createCell(4);
+        	cell_5.setCellValue(simpleDateFormat.format(sale.getDateOfSale()));
         }
         
         // This sets the width of the columns to match the length of the text
