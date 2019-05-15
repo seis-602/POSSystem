@@ -10,7 +10,7 @@
             <a href="/products/create" class="float-right btn btn-primary"><i class="fas fa-plus pr-1"></i> Add Product</a>
         </div>
         <div class="row">
-            <div v-for="product in dataProducts" class="col-6 col-md-4">
+            <div v-for="product in dataProducts" :key="product.id" class="col-6 col-md-4">
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                         <img src="http://via.placeholder.com/640x360" alt="" class="w-100 rounded mb-4">

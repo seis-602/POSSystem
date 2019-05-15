@@ -1,80 +1,119 @@
 package com.seis602.possystem.model;
 
+import java.lang.reflect.Type;
 import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Entity
 @Table(name = "sales")
 public class Sale {
 	
+	private static int idCount = 1;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
-	//Item objects
-	@ElementCollection
-	@CollectionTable(name="Product_List")
-	//@Column(name = "Product_List")
-	private List<String> productList;
-	//Amount
+	
+	@Column(columnDefinition="clob")
+	@Lob
+	private String products;
+	
 	@Column(name = "sale_total")
-	private Double saleTotal;
-	@Column(name = "userID")
-	private Integer userID;
-	@Column(name = "dateOfSale")
-	private Date dateAndTime;
-	@Column(name = "registerID")
-	private Integer registerID;
+	private Integer saleTotal;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+	
+	@Column(name = "date_of_sale")
+	private Date dateOfSale;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cash_register_id", referencedColumnName = "id")
+	private CashRegister cashRegister;
 	
 	public Sale() {
 		
 	}
 
-	public Sale(int id, ArrayList<String> productList, Double saleTotal, Integer userID, Date dateAndTime, Integer registerID) {
+	public Sale(User user, CashRegister cashRegister, String products, Integer saleTotal, Date dateOfSale) {
 		super();
-		this.id = id;
-		this.productList = productList;
+		this.id = Sale.idCount++;
+		this.user = user;
+		this.cashRegister = cashRegister;
+		this.products = products;
 		this.saleTotal = saleTotal;
-		this.dateAndTime = dateAndTime;
-		this.userID = userID;
-		this.registerID = registerID;
+		this.dateOfSale = dateOfSale;
 	}
-	
-	public int getID() {
+
+	public int getId() {
 		return id;
 	}
-	
-	public void setID(int id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
 	
-	public Object getSaleTotal() {
+	public String getProducts() {
+		return products;
+	}
+
+	public void setProducts(String products) {
+		this.products = products;
+	}
+	
+	public Collection<Product> getProductList() {
+		Type collectionType = new TypeToken<Collection<Product>>(){}.getType();
+		Collection<Product> productList = new Gson().fromJson(products, collectionType);
+		return productList;
+	}
+
+	public Integer getSaleTotal() {
 		return saleTotal;
 	}
-	
-	public List<String> getProductList() {
-		return this.productList;
+
+	public void setSaleTotal(Integer saleTotal) {
+		this.saleTotal = saleTotal;
 	}
-	
-	public Integer getUserID() {
-		return this.userID;
+
+	public User getUser() {
+		return user;
 	}
-	
-	public Date getDateAndTime() {
-		return this.dateAndTime;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	public Integer getRegisterID() {
-		return this.registerID;
+
+	public Date getDateOfSale() {
+		return dateOfSale;
+	}
+
+	public void setDateOfSale(Date dateOfSale) {
+		this.dateOfSale = dateOfSale;
+	}
+
+	public CashRegister getCashRegister() {
+		return cashRegister;
+	}
+
+	public void setCashRegister(CashRegister cashRegister) {
+		this.cashRegister = cashRegister;
 	}
 }

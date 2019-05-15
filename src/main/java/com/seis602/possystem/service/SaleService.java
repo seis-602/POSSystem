@@ -22,11 +22,11 @@ public class SaleService {
 		return sales;
 	}
 	
-	public Optional<Sale> getSale(Integer id) {
-		return saleRepository.findById(id);
+	public Sale getSale(Integer id) {
+		return saleRepository.findById(id).orElse(null);
 	}
 	
-	public void addSale(Sale sale) {
-		saleRepository.save(sale);
+	public Sale saveSale(Sale sale) {
+		return saleRepository.save(sale);
 	}
 }

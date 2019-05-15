@@ -19,6 +19,7 @@ Vue.component('inventories-index', require('./components/inventories/Index.vue')
 Vue.component('inventories-edit', require('./components/inventories/Edit.vue').default);
 
 Vue.component('sales-index', require('./components/sales/Index.vue').default);
+Vue.component('sales-show', require('./components/sales/Show.vue').default);
 
 Vue.component('products-create', require('./components/products/Create.vue').default);
 

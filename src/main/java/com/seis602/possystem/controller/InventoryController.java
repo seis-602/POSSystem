@@ -31,7 +31,6 @@ public class InventoryController {
 	public String edit(@PathVariable Integer productId, Model model){
 		
 		Product product = productService.getProduct(productId);
-		// exception handling
 		
 		String jsonProduct = new Gson().toJson(product);
 		model.addAttribute("product", jsonProduct);

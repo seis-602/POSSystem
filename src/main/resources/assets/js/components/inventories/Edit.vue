@@ -12,7 +12,9 @@
             <h4 class="text-muted">{{ product.category }}</h4>
             <h4 class="text-muted small"><i>From {{ product.supplier }}</i></h4>
             <p v-if="product.remaining === 0" class="text-danger">Out of Stock</p>
-            <p v-else :class="{'text-danger': product.remaining < 5}">{{product.remaining}} item<span v-if="product.remaining > 1">s</span> left</p>
+            <p v-else class="mb-0" :class="{'text-danger': product.remaining < 5}">{{product.remaining}} item<span v-if="product.remaining > 1">s</span> left</p>
+            <h4 v-if="product.threshold !== 0" class="text-muted small"><i>Threshold set to {{ product.threshold }} before reorder</i></h4>
+            <h4 v-else class="text-muted small"><i>Threshold not set</i></h4>
         </div>
         <div class="row">
             <div class="col-md-5">

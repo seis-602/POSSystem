@@ -26,20 +26,23 @@ public class Product {
     private int remaining;
     @Column(name = "requested_amount")
     private int requestedAmount;
+    @Column(name = "threshold")
+    private int threshold;
 
 	public Product() {
 		
     }
 
-	public Product(String name, String category, int price, String supplier, int remaining, int requestedAmount) {
+	public Product(String name, String category, int price, String supplier, int remaining, int requestedAmount, int threshold) {
 		super();
-		this.id = this.idCount++;
+		this.id = Product.idCount++;
 		this.name = name;
 		this.category = category;
 		this.price = price;
 		this.supplier = supplier;
 		this.remaining = remaining;
 		this.requestedAmount = requestedAmount;
+		this.threshold = threshold;
 	}
 
 	public int getId() {
@@ -96,6 +99,14 @@ public class Product {
 
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
+	}
+
+	public int getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(int threshold) {
+		this.threshold = threshold;
 	}
     
 }

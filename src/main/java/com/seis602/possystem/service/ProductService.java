@@ -35,9 +35,6 @@ public class ProductService {
 		productRepository.delete(product);
     }
 	
-	// call to automate ordering process - once threshold is met
-	// add threshold amount as attribute on Product
-	// call method on sales made (if threshold is met)
 	public Product setRequestedInventory(Product product, int amount) {
 		product.setRequestedAmount(product.getRequestedAmount() + amount);
 		return productRepository.save(product);

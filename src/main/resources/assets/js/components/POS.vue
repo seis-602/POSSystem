@@ -210,8 +210,13 @@
                 setTimeout(() => {
                     axios.post("/cash-registers/" + this.cashRegister.id + "/sales", formData)
                         .then((response) => {
-                            // let sale = response.data
-                            // redirect to /sales/sale.id
+                            this.processing = false;
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Completed!',
+                                text: 'Your sale has been successfully completed.'
+                            })
+                            setTimeout(() => { location.reload(); }, 2000);
                         })
                         .catch((errors) => {
                             Swal.fire({
