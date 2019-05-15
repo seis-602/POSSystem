@@ -1,6 +1,9 @@
 <template>
     <div class="container py-5">
         <h2 class="mb-4">Sales</h2>
+        <div v-if="dataSales.length == 0" class="alert alert-info">
+            <b>No sales have been made yet.</b>
+        </div>
         <div class="row">
             <div v-for="sale in dataSales" :key="sale.id" class="col-6 col-md-4">
                 <div class="card shadow-sm mb-4">

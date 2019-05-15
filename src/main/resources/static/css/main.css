@@ -6,7 +6,8 @@ body {
 
 .pos-navbar {
   min-height: 4rem;
-  background-color: #563d7c;
+  background-color: #11998e;
+  background: linear-gradient(to left, #31C388, #11998e);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
   .pos-navbar .dropdown-item {
     font-size: 0.93em;
@@ -48,12 +49,24 @@ body {
 .navbar-toggler {
   line-height: inherit; }
 
+.btn-primary {
+  background-color: #11998e;
+  border-color: #11998e; }
+
+.btn-primary:hover {
+  background-color: #0d7970;
+  border-color: #0d7970; }
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+  background-color: #0c6b63;
+  border-color: #0c6b63; }
+
 .login,
 .image {
   min-height: 100vh; }
 
 .bg-image {
-  background-image: url("https://source.unsplash.com/WEQbe2jBg40/600x1200");
+  background-image: url("/images/bg-login.jpg");
   background-size: cover;
   background-position: center; }
 

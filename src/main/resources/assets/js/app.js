@@ -23,6 +23,8 @@ Vue.component('sales-show', require('./components/sales/Show.vue').default);
 
 Vue.component('products-create', require('./components/products/Create.vue').default);
 
+Vue.component('reports-index', require('./components/reports/Index.vue').default);
+
 Vue.mixin({ mixins: [globalMixins] });
 
 const app = new Vue({

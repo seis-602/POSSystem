@@ -19,10 +19,12 @@ import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.CustomUserDetails;
 import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.Sale;
+import com.seis602.possystem.model.Shift;
 import com.seis602.possystem.model.User;
 import com.seis602.possystem.service.CashRegisterService;
 import com.seis602.possystem.service.ProductService;
 import com.seis602.possystem.service.SaleService;
+import com.seis602.possystem.service.ShiftService;
 import com.seis602.possystem.service.UserService;
 
 @RestController
@@ -33,6 +35,9 @@ public class ApiSaleController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ShiftService shiftService;
 	
 	@Autowired
 	private CashRegisterService cashRegisterService;
@@ -59,6 +64,7 @@ public class ApiSaleController {
 		List<Product> shoppingCart = this.recordSale(items);
 		
 		updateBalanceInCashRegister(cashRegisterId, saleTotal);
+		updateShiftDrawerAmount(user, saleTotal);
 		
 		String jsonProducts = new Gson().toJson(shoppingCart);
 		
@@ -109,5 +115,11 @@ public class ApiSaleController {
 	public void updateBalanceInCashRegister(Integer cashRegisterId, Integer saleTotal) {
 		CashRegister cashRegister = cashRegisterService.getCashRegisterByID(cashRegisterId);
 		cashRegister.setBalance(cashRegister.getBalance() + saleTotal);
+	}
+	
+	public void updateShiftDrawerAmount(User user, Integer saleTotal) {
+		Shift shift = shiftService.getActiveShiftByUser(user);
+		shift.setDrawerAmount(shift.getDrawerAmount() + saleTotal);
+		shiftService.saveShift(shift);
 	}
 }
