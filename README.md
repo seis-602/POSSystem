@@ -32,6 +32,7 @@ MVC Framework
 - Spring Security (for auth)
 - Apache Derby Relational Database
 - JPA (Java Persistence API) for data access
+- Apache POI - report generator - data to excel
 
 #### Frontend
 - Thymleaf
