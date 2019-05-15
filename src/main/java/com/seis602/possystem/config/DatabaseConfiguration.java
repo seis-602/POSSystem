@@ -5,12 +5,10 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.repository.CrudRepository;
 
 import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.User;
-import com.seis602.possystem.model.Sale;
 import com.seis602.possystem.model.Shift;
 import com.seis602.possystem.repository.CashRegisterRepository;
 import com.seis602.possystem.repository.ProductRepository;
@@ -31,7 +29,6 @@ public class DatabaseConfiguration {
 			) {
 		return new CommandLineRunner() {
 
-			@SuppressWarnings("deprecation")
 			@Override
 			public void run(String... args) throws Exception {
 				
@@ -41,7 +38,7 @@ public class DatabaseConfiguration {
 
 				userRepository.save(user1);
 				userRepository.save(user2);
-				userRepository.save(new User("al_einstein@gmail.com", "relativity", "Albert Einstein", "Albert", "Einstein"));
+				userRepository.save(new User("thisismyemail@gmail.com", "thisismypassword", "alinaqvi", "Ali", "Naqvi"));
 				userRepository.save(new User("testing@gmail.com", "123", "test", "Rhyan", "Foo Kune"));
 				
 				productRepository.save(new Product("Bread", "Food", 300, "Walmart", 70, 0, 0));

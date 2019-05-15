@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.google.gson.Gson;
-import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.Sale;
 import com.seis602.possystem.service.SaleService;
 
