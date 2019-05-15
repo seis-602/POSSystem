@@ -37,7 +37,8 @@
                 <a th:unless="${#strings.contains(#httpServletRequest.requestURI, 'sales')}" class="nav-link" href="/sales">Sales</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/reports">Reports</a>
+                <a th:if="${#strings.contains(#httpServletRequest.requestURI, 'reports')}" class="nav-link active" href="/reports">Reports</a>
+                <a th:unless="${#strings.contains(#httpServletRequest.requestURI, 'reports')}" class="nav-link" href="/reports">Reports</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

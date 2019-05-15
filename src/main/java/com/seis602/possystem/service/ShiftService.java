@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.seis602.possystem.model.Sale;
 import com.seis602.possystem.model.Shift;
 import com.seis602.possystem.model.User;
 import com.seis602.possystem.repository.ShiftRepository;
@@ -19,6 +20,12 @@ public class ShiftService {
 	public List<Shift> getAllShifts() {
 		List<Shift> shifts = new ArrayList<>();
 		shiftRepository.findAll().forEach(shifts::add);
+		return shifts;
+	}
+	
+	public List<Shift> getShiftsByUser(User user) {
+		List<Shift> shifts = new ArrayList<>();
+		shiftRepository.findAllByUser(user).forEach(shifts::add);
 		return shifts;
 	}
 	

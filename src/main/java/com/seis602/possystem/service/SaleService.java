@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seis602.possystem.model.Sale;
+import com.seis602.possystem.model.User;
 import com.seis602.possystem.repository.SaleRepository;
 
 @Service
@@ -19,6 +20,12 @@ public class SaleService {
 	public List<Sale> getAllSales() {
 		List<Sale> sales = new ArrayList<>();
 		saleRepository.findAll().forEach(sales::add);
+		return sales;
+	}
+	
+	public List<Sale> getSalesByUser(User user) {
+		List<Sale> sales = new ArrayList<>();
+		saleRepository.findAllByUser(user).forEach(sales::add);
 		return sales;
 	}
 	

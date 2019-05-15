@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.seis602.possystem.model.CustomUserDetails;
+import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.User;
 import com.seis602.possystem.repository.UserRepository;
 
@@ -17,6 +18,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired
     private UserRepository userRepository;
+	
+	public User getUser(int id) {
+		return userRepository.findById(id).orElse(null);
+	}
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -25,5 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return optionalUser.map(CustomUserDetails::new).get();
     }
+    
+    
 
 }

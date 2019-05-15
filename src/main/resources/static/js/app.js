@@ -1945,10 +1945,124 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     props: ['data-sales'],
-    mounted: function mounted() {}
+    data: function data() {
+        return {
+            generating: false,
+            inventoryReportFileName: '',
+            shiftReportFileName: '',
+            saleReportFileName: ''
+        };
+    },
+    mounted: function mounted() {},
+
+    methods: {
+        generateInventoryReport: function generateInventoryReport() {
+            var _this = this;
+
+            this.generating = 1;
+            axios.get('/api/reports/inventory').then(function (response) {
+                _this.generating = false;
+                _this.inventoryReportFileName = response.data;
+                Swal.fire({
+                    type: 'success',
+                    title: 'Generated!',
+                    text: 'The inventory report has been generated successfully.'
+                });
+            }).catch(function (errors) {
+                _this.generating = false;
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                });
+            });
+        },
+        generateShiftsReport: function generateShiftsReport() {
+            var _this2 = this;
+
+            this.generating = 2;
+            axios.get('/api/reports/shifts').then(function (response) {
+                _this2.generating = false;
+                _this2.shiftReportFileName = response.data;
+                Swal.fire({
+                    type: 'success',
+                    title: 'Generated!',
+                    text: 'The shift report has been generated successfully.'
+                });
+            }).catch(function (errors) {
+                _this2.generating = false;
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                });
+            });
+        },
+        generateSalesReport: function generateSalesReport() {
+            var _this3 = this;
+
+            this.generating = 3;
+            axios.get('/api/reports/sales').then(function (response) {
+                _this3.generating = false;
+                _this3.saleReportFileName = response.data;
+                Swal.fire({
+                    type: 'success',
+                    title: 'Generated!',
+                    text: 'The sale report has been generated successfully.'
+                });
+            }).catch(function (errors) {
+                _this3.generating = false;
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                });
+            });
+        }
+    }
 };
 
 /***/ }),
@@ -21827,40 +21941,172 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container py-5" }, [
-      _c("h2", { staticClass: "mb-4" }, [_vm._v("Reports")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-6" }, [
-          _c("div", { staticClass: "card shadow-sm mb-4" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "mb-3" }, [_vm._v("Report 1")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "small text-muted" }, [
-                _vm._v(
-                  "\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora repellat mollitia, saepe earum est repudiandae tenetur.\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "btn btn-dark btn-block", attrs: { href: "#" } },
-                [_vm._v("Generate")]
+  return _c("div", { staticClass: "container py-5" }, [
+    _c("h2", { staticClass: "mb-4" }, [_vm._v("Reports")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-6 col-xl-4" }, [
+        _c("div", { staticClass: "card shadow-sm mb-4" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "mb-3" }, [_vm._v("Inventory Report")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "small text-muted" }, [
+              _vm._v(
+                "\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora repellat mollitia, saepe earum est repudiandae tenetur.\n                    "
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _vm.inventoryReportFileName == ""
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.generateInventoryReport()
+                      }
+                    }
+                  },
+                  [
+                    _vm.generating == 1
+                      ? _c("span", [
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse mr-1"
+                          }),
+                          _vm._v(" Generating")
+                        ])
+                      : _c("span", [_vm._v("Generate")])
+                  ]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: {
+                      href: "/documents/" + _vm.inventoryReportFileName,
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-download pr-1" }),
+                    _vm._v(" Download\n                    ")
+                  ]
+                )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-6 col-xl-4" }, [
+        _c("div", { staticClass: "card shadow-sm mb-4" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "mb-3" }, [_vm._v("Shift Report")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "small text-muted" }, [
+              _vm._v(
+                "\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora repellat mollitia, saepe earum est repudiandae tenetur.\n                    "
+              )
+            ]),
+            _vm._v(" "),
+            _vm.shiftReportFileName == ""
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.generateShiftsReport()
+                      }
+                    }
+                  },
+                  [
+                    _vm.generating == 2
+                      ? _c("span", [
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse mr-1"
+                          }),
+                          _vm._v(" Generating")
+                        ])
+                      : _c("span", [_vm._v("Generate")])
+                  ]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: {
+                      href: "/documents/" + _vm.shiftReportFileName,
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-download pr-1" }),
+                    _vm._v(" Download\n                    ")
+                  ]
+                )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-6 col-xl-4" }, [
+        _c("div", { staticClass: "card shadow-sm mb-4" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "mb-3" }, [_vm._v("Sale Report")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "small text-muted" }, [
+              _vm._v(
+                "\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora repellat mollitia, saepe earum est repudiandae tenetur.\n                    "
+              )
+            ]),
+            _vm._v(" "),
+            _vm.saleReportFileName == ""
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.generateSalesReport()
+                      }
+                    }
+                  },
+                  [
+                    _vm.generating == 3
+                      ? _c("span", [
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse mr-1"
+                          }),
+                          _vm._v(" Generating")
+                        ])
+                      : _c("span", [_vm._v("Generate")])
+                  ]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: {
+                      href: "/documents/" + _vm.saleReportFileName,
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-download pr-1" }),
+                    _vm._v(" Download\n                    ")
+                  ]
+                )
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
