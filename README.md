@@ -33,14 +33,15 @@ MVC Framework
 - Apache Derby Relational Database
 - JPA (Java Persistence API) for data access
 - Apache POI - report generator - data to excel
+- Gson - json representation
 
 #### Frontend
 - Thymleaf
+- NPM (Node Package Manager)
 - Webpack
 - Babel
 - Vuejs
 - Axios
-
 
 ## Contributors
 
