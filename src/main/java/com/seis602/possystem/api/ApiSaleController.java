@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.seis602.possystem.model.CashRegister;
 import com.seis602.possystem.model.CustomUserDetails;
 import com.seis602.possystem.model.Product;
@@ -66,7 +67,8 @@ public class ApiSaleController {
 		updateBalanceInCashRegister(cashRegisterId, saleTotal);
 		updateShiftDrawerAmount(user, saleTotal);
 		
-		String jsonProducts = new Gson().toJson(shoppingCart);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		String jsonProducts = gson.toJson(shoppingCart);
 		
 		CashRegister cashRegister = cashRegisterService.getCashRegisterByID(cashRegisterId);
 		Sale sale = new Sale(user, cashRegister, jsonProducts, saleTotal, saleDate);

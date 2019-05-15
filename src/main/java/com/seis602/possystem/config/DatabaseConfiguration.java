@@ -1,5 +1,6 @@
 package com.seis602.possystem.config;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -25,14 +26,22 @@ public class DatabaseConfiguration {
 				CashRegisterRepository cashRegisterRepository,
 				ProductRepository productRepository, 
 				SaleRepository saleRepository,
-				UserRepository userRepository
+				UserRepository userRepository,
+				ShiftRepository shiftRepository
 			) {
 		return new CommandLineRunner() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run(String... args) throws Exception {
 				
 				// database seeder
+				User user1 = new User("al_einstein@gmail.com", "relativity", "Albert Einstein", "Albert", "Einstein");
+				User user2 = new User("donkey_kong@gmail.com", "donkey", "Donkey Kong", "Donkey", "Kong");
+
+				userRepository.save(user1);
+				userRepository.save(user2);
+				userRepository.save(new User("al_einstein@gmail.com", "relativity", "Albert Einstein", "Albert", "Einstein"));
 				userRepository.save(new User("testing@gmail.com", "123", "test", "Rhyan", "Foo Kune"));
 				
 				productRepository.save(new Product("Bread", "Food", 300, "Walmart", 70, 0, 0));
@@ -45,6 +54,19 @@ public class DatabaseConfiguration {
 				cashRegisterRepository.save(new CashRegister("Cash Register 1", 10000));
 				cashRegisterRepository.save(new CashRegister("Cash Register 2", 0));
 				cashRegisterRepository.save(new CashRegister("Cash Register 3", 15000));
+				
+				
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date startTime1 = format.parse("2019-05-15 8:12:17");
+				Date endTime1 = format.parse("2019-05-15 13:23:20");
+				Date startTime2 = format.parse("2019-05-15 11:45:56");
+				Date endTime2 = format.parse("2019-05-15 15:59:11");
+				
+				Shift shift1 = new Shift(user1, startTime1, endTime1, 152231);
+				Shift shift2 = new Shift(user2, startTime2, endTime2, 95050);
+				
+				shiftRepository.save(shift1);
+				shiftRepository.save(shift2);
 				
 			}
 			

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -13,19 +15,31 @@ public class Product {
 
 	@Id
     @Column(name = "id")
+	@Expose
     private int id;
+	
     @Column(name = "name")
+    @Expose
     private String name;
+    
     @Column(name = "category")
+    @Expose
     private String category;
+    
     @Column(name = "price")
+    @Expose
     private int price;
+    
+    @Expose
     @Column(name = "supplier")
     private String supplier;
+    
     @Column(name = "remaining")
     private int remaining;
+    
     @Column(name = "requested_amount")
     private int requestedAmount;
+    
     @Column(name = "threshold")
     private int threshold;
 
