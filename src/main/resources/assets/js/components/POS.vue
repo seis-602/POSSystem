@@ -216,7 +216,9 @@
                                 title: 'Completed!',
                                 text: 'Your sale has been successfully completed.'
                             })
-                            setTimeout(() => { location.reload(); }, 2000);
+                            setTimeout(() => { 
+                                window.location.href = "/sales/" + response.data;
+                             }, 2000);
                         })
                         .catch((errors) => {
                             Swal.fire({

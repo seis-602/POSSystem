@@ -52,7 +52,7 @@ public class ApiSaleController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/cash-registers/{cashRegisterId}/sales")
-	public Sale postSale(@PathVariable Integer cashRegisterId, @RequestBody Map<String, Object> payload) throws Exception {
+	public int postSale(@PathVariable Integer cashRegisterId, @RequestBody Map<String, Object> payload) throws Exception {
 		
 		Date saleDate = new Date();
 		Integer saleTotal = new Integer(payload.get("amount_due").toString());
@@ -74,7 +74,7 @@ public class ApiSaleController {
 		Sale sale = new Sale(user, cashRegister, jsonProducts, saleTotal, saleDate);
 		saleService.saveSale(sale);
 		
-		return sale;
+		return sale.getId();
 	}
 	
 	

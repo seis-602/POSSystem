@@ -1396,7 +1396,7 @@ exports.default = {
                         text: 'Your sale has been successfully completed.'
                     });
                     setTimeout(function () {
-                        location.reload();
+                        window.location.href = "/sales/" + response.data;
                     }, 2000);
                 }).catch(function (errors) {
                     Swal.fire({
