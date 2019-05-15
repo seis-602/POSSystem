@@ -23,9 +23,9 @@ public class Sale {
 	private int id;
 	//Item objects
 	@ElementCollection
-	@CollectionTable(name="PRODUCTS")
-	@Column(name = "Product_List")
-	private Map<Integer, Product> productList;
+	@CollectionTable(name="Product_List")
+	//@Column(name = "Product_List")
+	private List<String> productList;
 	//Amount
 	@Column(name = "sale_total")
 	private Double saleTotal;
@@ -40,7 +40,7 @@ public class Sale {
 		
 	}
 
-	public Sale(int id, Map<Integer, Product> productList, Double saleTotal, Integer userID, Date dateAndTime, Integer registerID) {
+	public Sale(int id, ArrayList<String> productList, Double saleTotal, Integer userID, Date dateAndTime, Integer registerID) {
 		super();
 		this.id = id;
 		this.productList = productList;
@@ -62,7 +62,7 @@ public class Sale {
 		return saleTotal;
 	}
 	
-	public Map<Integer, Product> getProductList() {
+	public List<String> getProductList() {
 		return this.productList;
 	}
 	

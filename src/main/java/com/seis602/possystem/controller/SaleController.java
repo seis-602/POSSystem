@@ -2,6 +2,7 @@ package com.seis602.possystem.controller;
 
 import java.util.*;
 import org.springframework.context.annotation.Bean;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.GetMapping;
 import com.seis602.possystem.model.Product;
 import com.seis602.possystem.model.Sale;
 import com.seis602.possystem.model.CashRegister;
@@ -31,8 +33,7 @@ public class SaleController {
 	@Autowired
 	private CashRegisterService cashRegister;
 	
-	private Map<Integer, Product> shoppingCart;
-	private int key = 1;
+	private ArrayList<String> shoppingCart;
 	private int saleID = 1;
 	//Product.java needs to have variables converted to double.
 	
@@ -40,6 +41,14 @@ public class SaleController {
 	public List<Sale>getAllSales() {
 		return saleService.getAllSales();
 	}
+	
+	/*@GetMapping("/allSales") 
+	public String index(Model model){
+		List<Sale> sales = saleService.getAllSales();
+		String jsonSales = new Gson().toJson(sales);
+		model.addAttribute("allSales", jsonSales);
+		return "sales/index";
+	}*/
 	
 	@RequestMapping(method=RequestMethod.POST, value="/sales")
 	public void addSale(@RequestBody Sale sale) {
@@ -49,7 +58,7 @@ public class SaleController {
 	@RequestMapping(method=RequestMethod.POST, value="/cash-registers/{cashRegisterId}/sales")
 	public void postSale(@PathVariable Integer cashRegisterId, @RequestBody Map<String, Object> payload) throws Exception {
 		
-		this.shoppingCart = new HashMap<Integer, Product>();
+		this.shoppingCart = new ArrayList<String>();
 		Date saleDate = new Date();
 		ArrayList<Object> items = (ArrayList) payload.get("cart_items");
 		items.forEach((Object item) -> getProducts(item));
@@ -64,13 +73,11 @@ public class SaleController {
 		ObjectMapper oMapper = new ObjectMapper();
 		Map<String, Object> mapItem = oMapper.convertValue(item, Map.class);
 		Integer productID = (int) mapItem.get("product_id");
-		//Temporary solution to double issue, works for now
-		Double quantity = transformQuantity(mapItem.get("quantity"));
+		Object quantity = mapItem.get("quantity");
 		Product p = products.getProduct(productID);
-		this.shoppingCart.put(key, p);
-		updateInventory(productID, quantity);
+		this.shoppingCart.add(toString(p, quantity));
+		updateInventory(productID, transformQuantity(quantity));
 		mapItem.clear();
-		key++;
 	}
 	
 	public void updateInventory(Integer productID, Double quantity) {
@@ -100,5 +107,9 @@ public class SaleController {
 	public double transformQuantity(Object q) {
 		Double quantity = (Double.parseDouble(q.toString())/100);
 		return quantity;
+	}
+	
+	public String toString(Product p, Object quantity) {
+		return "Product: " + p.getName() + ", Price: " + p.getPrice() + ", Quantity: " + quantity.toString();
 	}
 }
