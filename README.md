@@ -26,14 +26,14 @@ Import as java project in Eclipse and install Maven dependencies from pom.xml
 
 MVC Framework
 
-Backend
+#### Backend
 - Java
 - Spring Boot
 - Spring Security (for auth)
 - Apache Derby Relational Database
 - JPA (Java Persistence API) for data access
 
-Frontend
+#### Frontend
 - Thymleaf
 - Webpack
 - Babel
