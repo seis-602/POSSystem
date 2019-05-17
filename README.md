@@ -22,6 +22,10 @@ Import as java project in Eclipse and install Maven dependencies from pom.xml
   $ npm run watch
 ```
 
+
+#### Running the application
+Run the application from the src/main/java com.seis602.possystem PosSystemApplication class;
+
 ## Tools
 
 MVC Framework
